@@ -6,7 +6,7 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:42:04 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/06 01:54:18 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 01:55:59 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,7 +400,10 @@ void	print_address_hex(t_main *main, t_flags *flags)
 	while (d < 16 && hex[d] == '0')
 		d++;
 	hex[16] = '\0';
-	ft_putstr(&hex[d]);
+	if (!hex[d])
+		ft_putchar('0');
+	else
+		ft_putstr(&hex[d]);
 }
 
 void	get_address(t_main *main, t_flags *flags)
