@@ -6,7 +6,7 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:42:04 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/06 00:59:32 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 01:45:55 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,13 @@ void	print_struct(t_flags f)
 
 int		check_for_flag(t_flags *flags, char c)
 {
-	if (c == '-' || c == '+' || c == '#' || c == '0')
+	if (c == '-' || c == '+' || c == '#' || c == '0' || c == ' ')
 	{
 		flags->f_minus = c == '-' ? 1 : flags->f_minus;
 		flags->f_plus = c == '+' ? 1 : flags->f_plus;
 		flags->f_hash = c == '#' ? 1 : flags->f_hash;
 		flags->f_zero = c == '0' ? 1 : flags->f_zero;
+		flags->f_space = c == ' ' ? 1 : flags->f_space;
 		flags->f_hash_len = flags->f_hash ? 2 : flags->f_hash_len;
 		return (1);
 	}
@@ -225,6 +226,21 @@ int		check_for_mod(t_flags *flags, char *format)
 		flags->m_ll = ft_strncmp(format, "ll", 2) == 0 ? 1 : flags->m_ll;
 		flags->m_l_float = ft_strncmp(format, "L", 1) == 0 ? 1 : flags->m_l_float;
 		flags->m_step_len = d;
+		return (1);
+	}
+	return (0);
+}
+
+// int		no_flag(t_flags *flags)
+// {
+// 	return (flags->f_minus || flags->)
+// }
+
+int		check_for_space(char *format)
+{
+	if (*(format) == ' ' && ft_strlen(format) >= 2 && (*(format + 1) == 'd' || *(format + 1) == 'i' || *(format + 1) == '0'))
+	{
+		ft_putchar(' ');
 		return (1);
 	}
 	return (0);
@@ -430,6 +446,11 @@ void	print_int_w(t_main *main, t_flags *flags)
 		flags->int_len++;
 	}
 	flags->int_len = flags->p_len == flags->w_len ? 0 : flags->int_len;
+	if (flags->f_space > 0 && flags->min_plus == 0)
+	{
+		ft_putchar(' ');
+		flags->int_len++;
+	}
 	flags->k = flags->w_len > flags->p_len && flags->p_len > flags->di_len ? 1 : flags->k;
 	if (flags->f_minus && flags->p_len > flags->di_len && flags->w_len > flags->p_len)
 	{
@@ -637,6 +658,7 @@ void	get_hex_octal_unsigned(t_main *main, t_flags *flags)
 void	get_arg(t_main *main, t_flags *flags)
 {
 	flags->f_zero = flags->f_minus ? 0 : flags->f_zero;
+	flags->f_space = flags->f_hash ? 0 : flags->f_space;
 	if (flags->mod == d || flags->mod == x || flags->mod == X ||
 		flags->mod == o || flags->mod == i || flags->mod == u)
 	{
@@ -670,7 +692,7 @@ char	*check_for_pre(t_main *main, char *format)
 	t_flags flags;
 
 	format++;
-	flags = (t_flags){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	flags = (t_flags){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	format = set_flags(&flags, format);
 	get_arg(main, &flags);
 	// get_mod(main, flags)
