@@ -6,7 +6,7 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:42:04 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/06 01:45:55 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 01:54:18 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,14 +381,15 @@ void	print_address_hex(t_main *main, t_flags *flags)
 {
 	int			i;
 	int			d;
-	char		hex[16];
+	char		hex[17];
 	uintptr_t	p;
 	
 	p = (uintptr_t)main->p;
 	i = (sizeof(p) << 3) - 4;
 	d = 0;
 	if (flags->f_hash > 0)
-		ft_putstr("0x");
+	{}
+	ft_putstr("0x");
 	while (i >= 0)
 	{
 		hex[d] = hex_digit((p >> i) & 0xf);
@@ -398,6 +399,7 @@ void	print_address_hex(t_main *main, t_flags *flags)
 	d = 0;
 	while (d < 16 && hex[d] == '0')
 		d++;
+	hex[16] = '\0';
 	ft_putstr(&hex[d]);
 }
 
