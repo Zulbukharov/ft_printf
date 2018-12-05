@@ -6,7 +6,7 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 19:43:09 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/06 00:20:49 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 01:37:41 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_flags
 	int					f_plus;
 	int					f_hash;
 	int					f_zero;
+	int					f_space;
 
 	int					f_hash_len;
 
