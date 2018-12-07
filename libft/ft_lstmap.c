@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 17:52:58 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/03/27 18:20:14 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:51:24 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {

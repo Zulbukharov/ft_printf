@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 17:51:01 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/01 23:57:13 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:51:02 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 static int		ft_pow(int nb, int pow)
 {

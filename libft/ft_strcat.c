@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azulbukh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 20:24:10 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/03/26 18:02:38 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:52:35 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 char	*ft_strcat(char *dest, const char *app)
 {

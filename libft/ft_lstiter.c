@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 17:36:19 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/03/27 18:09:54 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:51:21 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {

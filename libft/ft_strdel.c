@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 18:40:33 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/04/23 20:01:58 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:52:54 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 void	ft_strdel(char **as)
 {

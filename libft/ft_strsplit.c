@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:51:28 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/09/24 23:27:51 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:53:48 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 static int	countwords(char const *s, char c)
 {

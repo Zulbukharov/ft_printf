@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_reverse_bit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azulbukh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 23:21:58 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/01 23:22:07 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:52:30 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 char	*ft_reverse_bitwise(char *str)
 {

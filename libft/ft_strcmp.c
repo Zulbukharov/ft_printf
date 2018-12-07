@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:57:49 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/11/22 21:16:21 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:52:47 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 int		ft_strcmp(const char *s1, const char *s2)
 {

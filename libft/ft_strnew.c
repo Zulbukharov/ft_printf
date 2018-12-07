@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 18:13:40 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/03/29 14:18:31 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:53:42 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 char	*ft_strnew(size_t size)
 {

@@ -6,7 +6,7 @@
 #    By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/20 23:25:10 by azulbukh          #+#    #+#              #
-#    Updated: 2018/12/04 21:41:40 by azulbukh         ###   ########.fr        #
+#    Updated: 2018/12/06 18:31:54 by azulbukh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,22 +42,18 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME) : $(OBJECT_LIB) $(OBJECT_PRINTF)
-		@echo "\033[0;32mLib compiled\033[0;0m"
-		@ar rc $(NAME) $(OBJECT_LIB) $(OBJECT_PRINTF)
-		@ranlib $(NAME)
+		ar rc $(NAME) $(OBJECT_LIB) $(OBJECT_PRINTF)
+		ranlib $(NAME)
 %.o: %.c
-		@gcc -g $(FLAGS) -o $@ -c $< $(INCLUDES)
+		gcc -g $(FLAGS) -o $@ -c $< $(INCLUDES)
 clean:
-		@/bin/rm -f $(OBJECT_LIB)
-		@/bin/rm -f $(OBJECT_PRINTF)
+		/bin/rm -f $(OBJECT_LIB)
+		/bin/rm -f $(OBJECT_PRINTF)
 fclean: clean
-		@/bin/rm -f ./libft/libft.a
-		@/bin/rm -f $(NAME)
+		/bin/rm -f ./libft/libft.a
+		/bin/rm -f $(NAME)
 re:		fclean all
 
 tags:
 		rm -f TAGS
 		etags -e -R *.c *.h
-
-# . - сколько символов стринга вывести
-# width сколько места будет занимать

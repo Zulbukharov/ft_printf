@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azulbukh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 17:26:08 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/03/23 20:15:12 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:53:10 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 static void	cmp_it(char const *s1, unsigned int *n, unsigned int cq, char *cop)
 {

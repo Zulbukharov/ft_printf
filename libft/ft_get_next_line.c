@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:12:39 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/04/23 19:57:12 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:50:07 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 static void	ft_add_to_line(char *i, char **line, t_node *cache)
 {

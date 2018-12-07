@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 23:21:32 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/03 21:04:00 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:49:57 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 int		count_bits(unsigned long long nbr)
 {

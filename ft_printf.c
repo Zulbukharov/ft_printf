@@ -6,33 +6,12 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:42:04 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/06 01:55:59 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/07 18:46:21 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// int d;//dec 4 byte
-// int c;//char
-// int s;//string
-// int f;//flloat 4 bytes
-// int F;//flloat 4 bytes upper
-// int l;//long int
-// int h;//short int
-// int o;//octal
-// int x;//hex lower
-// int X;//hex upper
-
-// при парсинге, если встретилась %, то создать структуру
-// в которой будут присутствовать все флаги а также допилнительные
-// #0-+
-// void		ft_put_float(flat)
-
-// int get_int_len_with_negative_too (int value){
-//   int l=!value;
-//   while(value){ l++; value/=10; }
-//   return l;
-// }
 int			ft_get_int_len(long long value)
 {
 	int l;
@@ -161,13 +140,11 @@ int		check_for_flag(t_flags *flags, char c)
 
 int		check_for_width(char *format, t_flags *flags)
 {
-	// ft_putstr(&(*format));
 	if (ft_atoi(&(*format)) > 0)
 	{
 		flags->w_len = ft_atoi(format);
 		flags->w_step_len = ft_get_int_len((long long)flags->w_len);
 		flags->s_step2 = 1;
-		// ft_putnbr(flags->w_len);
 		return (1);
 	}
 	return (0);
@@ -231,16 +208,11 @@ int		check_for_mod(t_flags *flags, char *format)
 	return (0);
 }
 
-// int		no_flag(t_flags *flags)
-// {
-// 	return (flags->f_minus || flags->)
-// }
-
-int		check_for_space(char *format)
+int		no_flags(char *format, t_flags *flags)
 {
-	if (*(format) == ' ' && ft_strlen(format) >= 2 && (*(format + 1) == 'd' || *(format + 1) == 'i' || *(format + 1) == '0'))
+	if (check_for_mod(flags, format) == 1 || check_for_width(format, flags) == 1 || *format == '.' ||
+	check_for_mod(flags, format) == 1 || check_for_type(flags, *format) == 1 || check_for_flag(flags, *format) == 1)
 	{
-		ft_putchar(' ');
 		return (1);
 	}
 	return (0);
@@ -252,6 +224,8 @@ char	*set_flags(t_flags *flags, char *format)
 	{
 		if (check_for_flag(flags, *format) == 1)
 			format++;
+		else if ((*format >= 9 && *format <= 13) || no_flags(format, flags) == 0)
+			return (format);
 		else if (check_for_width(format, flags) > 0)
 			format += flags->w_step_len;
 		else if (*format == '.' && check_for_prec(flags, ++format) > 0)
@@ -275,13 +249,13 @@ void	print_whitespaces(t_flags *flags, int len)
 	if (flags->mod == f)
 		z = flags->w_len - flags->p_len - len;
 	else if (flags->mod == x || flags->mod == X ||
-	flags->mod == o)
+	flags->mod == o || flags->mod == p)
 	{
 		z = flags->w_len - len - flags->f_hash_len;
 		if (flags->p_len < flags->w_len && flags->p_len > len)
 			z = z - (flags->p_len - len);
 	}
-	else if (flags->mod == i || flags->mod == d)
+	else if (flags->mod == i || flags->mod == d || flags->mod == u)
 	{
 		z = flags->w_len - len - flags->int_len;
 		if (flags->p_len < flags->w_len && flags->p_len > len)
@@ -387,9 +361,6 @@ void	print_address_hex(t_main *main, t_flags *flags)
 	p = (uintptr_t)main->p;
 	i = (sizeof(p) << 3) - 4;
 	d = 0;
-	if (flags->f_hash > 0)
-	{}
-	ft_putstr("0x");
 	while (i >= 0)
 	{
 		hex[d] = hex_digit((p >> i) & 0xf);
@@ -400,10 +371,52 @@ void	print_address_hex(t_main *main, t_flags *flags)
 	while (d < 16 && hex[d] == '0')
 		d++;
 	hex[16] = '\0';
+	flags->f_hash = 1;
+	flags->f_hash_len = 2;
 	if (!hex[d])
-		ft_putchar('0');
+	{
+		if (flags->f_minus)
+			zero_before_ples(&hex[d], flags);
+		if (flags->p_zero > 0)
+		{
+			ft_putstr("0x");
+			if (flags->w_len > 0 && !flags->f_minus)
+				print_whitespaces(flags, 0);
+		}
+		else
+		{
+			if (flags->w_len > 0 && flags->f_zero && !flags->f_minus)
+				ft_putstr("0x0");
+			if (flags->w_len > 0 && !flags->f_minus && flags->w_len > flags->p_len)
+				print_whitespaces(flags, 1);
+			else if (!flags->f_minus && flags->w_len == flags->p_len)
+				print_whitespaces(flags, -1);
+			if (!flags->f_zero)
+				ft_putstr("0x0");
+			if (!flags->f_minus)
+				zero_before_ples(&hex[d], flags);
+		}
+	}
 	else
+	{
+		if (flags->p_len == flags->w_len)
+			flags->f_hash_len = 0;
+		if (flags->f_minus)
+			zero_before_ples(&hex[d], flags);
+		if (flags->f_zero)
+			ft_putstr("0x");
+		if (flags->w_len > 0 && !flags->f_minus)
+			print_whitespaces(flags, ft_strlen(&hex[d]));
+		if (!flags->f_minus)
+			zero_before_ples(&hex[d], flags);
+		if (!flags->f_zero)
+			ft_putstr("0x");
 		ft_putstr(&hex[d]);
+	}
+	if (flags->w_len > 0 && flags->f_minus && hex[d])
+		print_whitespaces(flags, ft_strlen(&hex[d]));
+	if (flags->w_len > 0 && flags->f_minus && !hex[d])
+		print_whitespaces(flags, 1);
 }
 
 void	get_address(t_main *main, t_flags *flags)
@@ -518,15 +531,28 @@ void	get_char(t_main *main, t_flags *flags)
 void	print_string(t_main *main, t_flags *flags)
 {
 	if (main->string == NULL)
+	{
 		main->string = ft_strdup("(null)");
-	if (flags->p_len > 0)
-		if (flags->p_len < (int)ft_strlen(main->string))
-			main->string = ft_strsub(main->string, 0, flags->p_len);
+		flags->f = 1;
+	}
+	if (flags->p_len > 0 || flags->p_zero)
+	{
+		if (flags->p_zero)
+			main->string = ft_strdup("");
+		else if (flags->p_len < (int)ft_strlen(main->string))
+		{
+			main->tmp = ft_strsub(main->string, 0, flags->p_len);
+			main->string = main->tmp;
+			main->tmp = NULL;
+		}
+	}
 	if (flags->w_len > 0 && !flags->f_minus)
 		print_whitespaces(flags, ft_strlen(main->string));
 	ft_putstr(main->string);
 	if (flags->w_len > 0 && flags->f_minus)
 		print_whitespaces(flags, ft_strlen(main->string));
+	if (flags->f)
+		free(main->string);
 }
 
 void	get_string(t_main *main, t_flags *flags)
@@ -537,13 +563,17 @@ void	get_string(t_main *main, t_flags *flags)
 
 void	print_hex(t_main *main, t_flags *flags)
 {
-	char *hex;
-
-	hex = NULL;
-	hex = ft_itoa_base_10_16(main->lloux);
-	if (!*hex)
+	main->tmp = NULL;
+	ft_bzero(main->hex, 1024);
+	main->tmp = ft_itoa_base_10_16(main->lloux);
+	ft_strcpy(main->hex, main->tmp);
+	if (main->tmp)
+		free(main->tmp);
+	if (!*main->hex && ft_strlen(main->hex) == 0)
 	{
 		flags->f_hash_len = 0;
+		if (flags->f_minus)
+			zero_before_ples(main->hex, flags);
 		if (flags->p_zero > 0)
 		{
 			if (flags->w_len > 0 && !flags->f_minus)
@@ -552,59 +582,68 @@ void	print_hex(t_main *main, t_flags *flags)
 		else
 		{
 			if (flags->w_len > 0 && !flags->f_minus)
-				print_whitespaces(flags, 1);
+				print_whitespaces(flags, 0);
+			if (!flags->f_minus)
+				zero_before_ples(main->hex, flags);
 			ft_putchar('0');
 		}
 	}
 	else
 	{
+		if (flags->f_hash && flags->p_len >= flags->w_len)
+			flags->f_hash_len = 0;
 		if (flags->f_minus)
-			zero_before_ples(hex, flags);
+			zero_before_ples(main->hex, flags);
 		if (flags->f_zero && flags->f_hash && flags->mod == x)
 			ft_putstr("0x");
 		if (flags->f_zero && flags->f_hash && flags->mod == X)
 			ft_putstr("0X");
 		if (flags->w_len > 0 && !flags->f_minus)
-			print_whitespaces(flags, ft_strlen(hex));
+			print_whitespaces(flags, ft_strlen(main->hex));
 		if (!flags->f_minus)
-			zero_before_ples(hex, flags);
+			zero_before_ples(main->hex, flags);
 		if (flags->mod == X)
-			ft_upper_case(hex);
+			ft_upper_case(main->hex);
 		if (!flags->f_zero && flags->f_hash && flags->mod == x)
 			ft_putstr("0x");
 		if (!flags->f_zero && flags->f_hash && flags->mod == X)
 			ft_putstr("0X");
-		ft_putstr(hex);
+		ft_putstr(main->hex);
 	}
 	if (flags->w_len > 0 && flags->f_minus)
-		print_whitespaces(flags, ft_strlen(hex));
+		print_whitespaces(flags, ft_strlen(main->hex));
+	// if (main->hex && *main->hex)
+	// 	free(main->hex);
 }
 
 void	print_octal(t_main *main, t_flags *flags)
 {
-	char *octal;
-
-	octal = ft_itoa_base_10_8(main->lloux);
-	if (ft_strlen(octal) == 0 && !flags->p_zero)
+	main->tmp = NULL;
+	ft_bzero(main->octal, 1024);
+	main->tmp = ft_itoa_base_10_8(main->lloux);
+	ft_strcpy(main->octal, main->tmp);
+	if (main->tmp)
+		free(main->tmp);
+	if (ft_strlen(main->octal) == 0 && !flags->p_zero)
 		ft_putchar('0');
 	else
 	{
-		if (flags->f_minus && flags->p_len > (int)ft_strlen(octal) && flags->w_len > flags->p_len)
+		if (flags->f_minus && flags->p_len > (int)ft_strlen(main->octal) && flags->w_len > flags->p_len)
 		{
 			if (flags->f_minus)
-				zero_before_ples(octal, flags);
+				zero_before_ples(main->octal, flags);
 		}
 		if (flags->f_zero && flags->f_hash && flags->mod == o)
 			ft_putstr("0");
 		if (flags->w_len > 0 && !flags->f_minus)
-			print_whitespaces(flags, ft_strlen(octal));
+			print_whitespaces(flags, ft_strlen(main->octal));
 		if (!flags->f_minus)
-			zero_before_ples(octal, flags);
+			zero_before_ples(main->octal, flags);
 		if (!flags->f_zero && flags->f_hash && flags->mod == o)
 			ft_putstr("0");
-		ft_putstr(octal);
+		ft_putstr(main->octal);
 		if (flags->w_len > 0 && flags->f_minus)
-			print_whitespaces(flags, ft_strlen(octal));
+			print_whitespaces(flags, ft_strlen(main->octal));
 	}
 }
 
@@ -623,6 +662,8 @@ void	print_unsigned(t_main *main, t_flags *flags)
 	flags->di_len = ft_get_uns_len(main->lloux);
 	flags->int_len = flags->p_len == flags->w_len ? 0 : flags->int_len;
 	flags->k = flags->w_len > flags->p_len && flags->p_len > flags->di_len ? 1 : flags->k;
+	if (main->lloux == 0 && flags->p_zero)
+		flags->di_len = 0;
 	if (flags->f_minus && flags->p_len > flags->di_len && flags->w_len > flags->p_len)
 	{
 		if (flags->f_minus)
@@ -636,7 +677,8 @@ void	print_unsigned(t_main *main, t_flags *flags)
 	{
 		zero_before_ples1(flags->di_len, flags);
 	}
-	print_uns(main->lloux);
+	if (!flags->p_zero)
+		print_uns(main->lloux);
 	if (flags->w_len > 0 && flags->f_minus)
 		print_whitespaces(flags, flags->di_len);
 }
@@ -665,7 +707,8 @@ void	get_arg(t_main *main, t_flags *flags)
 	flags->f_zero = flags->f_minus ? 0 : flags->f_zero;
 	flags->f_space = flags->f_hash ? 0 : flags->f_space;
 	if (flags->mod == d || flags->mod == x || flags->mod == X ||
-		flags->mod == o || flags->mod == i || flags->mod == u)
+		flags->mod == o || flags->mod == i || flags->mod == u ||
+		flags->mod == p)
 	{
 		// flags->k = flags->w_len > flags->p_len && flags->p_len > 
 		flags->w_len = flags->p_len > flags->w_len ? flags->p_len : flags->w_len;
@@ -697,7 +740,7 @@ char	*check_for_pre(t_main *main, char *format)
 	t_flags flags;
 
 	format++;
-	flags = (t_flags){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	flags = (t_flags){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	format = set_flags(&flags, format);
 	get_arg(main, &flags);
 	// get_mod(main, flags)
@@ -722,5 +765,3 @@ int		ft_printf(char *format, ...)
 	va_end(main.arg);
 	return (g_counter);
 }
-
-//%[флаги][ширина][точность][модификаторы][тип преобразования]

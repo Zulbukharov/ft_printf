@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 23:48:35 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/03/27 19:30:25 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:51:32 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {

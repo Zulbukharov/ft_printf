@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_digits.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azulbukh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 20:58:59 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/03 20:59:04 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:50:02 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <libft.h>
 
 int		ft_count_digits(int value, int base)
 {

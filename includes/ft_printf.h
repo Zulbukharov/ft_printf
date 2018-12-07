@@ -6,7 +6,7 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 19:43:09 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/06 01:37:41 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/07 18:44:50 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct			s_flags
 	int					int_step;
 	int					k;
 	int					di_len;
+	int					f;
 }						t_flags;
 
 typedef struct			s_main
@@ -104,6 +105,10 @@ typedef struct			s_main
 	float				f;
 	double				lf;
 	long double			llf;
+	char				hex[1024];
+	char				octal[1024];
+	// char				*octal;
+	char				*tmp;
 }						t_main;
 
 int						ft_printf(char *format, ...);

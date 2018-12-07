@@ -6,11 +6,11 @@
 /*   By: azulbukh <azulbukh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 20:37:38 by azulbukh          #+#    #+#             */
-/*   Updated: 2018/12/04 18:07:41 by azulbukh         ###   ########.fr       */
+/*   Updated: 2018/12/06 17:52:27 by azulbukh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 void	ft_putstr(char const *s)
 {
